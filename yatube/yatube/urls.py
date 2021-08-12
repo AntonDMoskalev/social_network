@@ -1,4 +1,4 @@
-from posts.views import page_not_found, server_error  # noqa: F401
+from posts.views import page_not_found, server_error #noqa
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import handler404, handler500
