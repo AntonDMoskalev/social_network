@@ -110,6 +110,7 @@ def post_edit(request, username, post_id):
                   {'form': form,
                    "username": username,
                    'post_id': post_id,
+                   'post': post,
                    'is_edit': True})
 
 
