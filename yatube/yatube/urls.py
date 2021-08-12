@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from posts.views import page_not_found, server_error # noqa: F401, E261
+from posts.views import page_not_found, server_error  # noqa
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import handler404, handler500
@@ -21,8 +21,8 @@ from posts import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-handler404 = "posts.views.page_not_found" # noqa: E261
-handler500 = "posts.views.server_error" # noqa: E261
+handler404 = "posts.views.page_not_found"  # noqa
+handler500 = "posts.views.server_error"  # noqa
 
 urlpatterns = [
     path('404/', views.page_not_found, name="404"),
