@@ -1,0 +1,8 @@
+{% extends "includes/base.html" %}
+{% block title %}Пост пользователя {{ post.author.get_full_name }}{% endblock %}
+{% block header %}Пост пользователя {{ post.author.get_full_name }}{% endblock %}
+{% block content %}
+  {% include "includes/profile_info.html" %}
+  {% include "includes/post_item.html" %}
+  {% include "includes/comments.html" %}
+  {% endblock %}

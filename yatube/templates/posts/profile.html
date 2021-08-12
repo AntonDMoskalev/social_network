@@ -1,0 +1,13 @@
+{% extends "includes/base.html" %}
+{% block title %}Посты пользователя {{ author.get_full_name }}{% endblock %}
+{% block header %}Посты пользователя {{ author.get_full_name }}{% endblock %}
+{% block content %}
+  {% include "includes/profile_info.html" %}
+      {% for post in page %}
+        {% include "includes/post_item.html" %}
+      {% endfor %}
+      {% include "includes/paginator.html" %}
+{% endblock %}
+      <!-- Конец блока с отдельным постом -->
+      <!-- Остальные посты -->
+      <!-- Здесь постраничная навигация паджинатора -->
