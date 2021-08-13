@@ -1,11 +1,11 @@
-{% extends "includes/base.html" %}
+{% extends "base.html" %}
 {% block title %}Последние обновления на сайте{% endblock %}
 {% block header %}Последние обновления на сайте{% endblock %}
 {% block content %}
 
 
   <div class="container">
-    {% include "includes/menu.html" %}
+    {% include "includes/menu.html" with follow=True %}
     <!-- Вывод ленты записей -->
     {% for post in page %}
       <!-- Вот он, новый include! -->

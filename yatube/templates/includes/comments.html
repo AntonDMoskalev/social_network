@@ -1,7 +1,7 @@
 <!-- Форма добавления комментария -->
 {% if user.is_authenticated %}
   <div class="card my-4">
-    <form method="post" action="{% url 'add_comment' username=username post_id=post_id %}">
+    <form method="post" action="{% url 'add_comment' post.author.username post.id %}">
       {% csrf_token %}
       <h5 class="card-header">Добавить комментарий:</h5>
       <div class="card-body">

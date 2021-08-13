@@ -3,11 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import PostForm, CommentForm
 from .models import Post, Group, User, Follow
-from django.views.decorators.http import require_GET
+from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 
 
-@require_GET
+@cache_page(20)
 def index(request):
     posts = cache.get('index_page')
     if posts is None:
@@ -49,7 +49,6 @@ def profile(request, username):
 
     return render(request,
                   'posts/profile.html', {
-                      'posts': posts,
                       'author': author,
                       'page': page,
                       'following': following})
@@ -58,7 +57,6 @@ def profile(request, username):
 def post_view(request, username, post_id):
     author = get_object_or_404(User, username=username)
     post = author.posts.get(pk=post_id)
-    comments = post.comments.all()
     form = CommentForm()
     following = False
     if (not
@@ -70,27 +68,19 @@ def post_view(request, username, post_id):
                   'posts/post.html', {
                       'author': author,
                       'post': post,
-                      'username': request.user,
-                      'post_id': post_id,
-                      'comments': comments,
                       'form': form,
                       'following': following})
 
 
 @login_required
 def new_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, files=request.FILES or None)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('/')
-        return render(request, 'posts/new_post.html', {'form': form})
-    form = PostForm()
-    return render(request,
-                  'posts/new_post.html',
-                  {'form': form})
+    form = PostForm(request.POST, files=request.FILES or None)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.author = request.user
+        post.save()
+        return redirect('/')
+    return render(request, 'posts/new_post.html', {'form': form})
 
 
 @login_required
@@ -108,8 +98,6 @@ def post_edit(request, username, post_id):
     return render(request,
                   'posts/new_post.html',
                   {'form': form,
-                   "username": username,
-                   'post_id': post_id,
                    'post': post,
                    'is_edit': True})
 
@@ -130,20 +118,13 @@ def server_error(request):
 @login_required
 def add_comment(request, username, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    if request.method == "POST":
-        form = CommentForm(request.POST or None)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
-            comment.save()
-            return redirect("post", username=username, post_id=post_id)
-        return render(
-            request, 'includes/comments.html', {
-                'form': form,
-                'username': request.user,
-                'post_id': post_id})
-    form = CommentForm()
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.author = request.user
+        comment.save()
+        return redirect("post", username=username, post_id=post_id)
     return render(
         request, 'includes/comments.html', {
             'form': form,
@@ -169,9 +150,7 @@ def profile_follow(request, username):
         not Follow.objects.filter(
             user=request.user, author=author).exists()):
         Follow.objects.create(user=request.user, author=author)
-        return redirect('profile', username)
-    else:
-        return redirect('profile', username)
+    return redirect('profile', username)
 
 
 @login_required

@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from posts.models import Group, Post
 from django import forms
@@ -10,14 +10,16 @@ import tempfile
 from django.core.cache import cache
 
 User = get_user_model()
+TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
 
+@override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class PostGroupViewsTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        settings.MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
         cls.user = User.objects.create(username="test")
+        cls.user_2 = User.objects.create(username='test_2')
         # Create object Group cat
         cls.test_group_cat = Group.objects.create(
             title="Группа любителей котов",
@@ -54,13 +56,16 @@ class PostGroupViewsTests(TestCase):
     def tearDownClass(cls):
         super().tearDownClass()
         # Рекурсивно удаляем временную после завершения тестов
-        shutil.rmtree(settings.MEDIA_ROOT, ignore_errors=True)
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
         # Create authorized client
         self.user = PostGroupViewsTests.user
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
+        self.authorized_client_2 = Client()
+        self.authorized_client_2.force_login(self.user_2)
+        cache.clear()
 
     def test_views_use_correct_template(self):
         """Checking, that the Views class uses the appropriate template."""
@@ -81,7 +86,6 @@ class PostGroupViewsTests(TestCase):
 
     def test_index_take_correct_context(self):
         """The index template is rendered with the correct context."""
-        cache.clear()
         response = self.authorized_client.get(reverse('index'))
         self.assertEqual(
             response.context['post'][0].text,
@@ -164,16 +168,16 @@ class PostGroupViewsTests(TestCase):
             'profile',
             kwargs={'username': PostGroupViewsTests.user}))
         self.assertEqual(
-            response.context['posts'][0].text,
+            response.context['page'][0].text,
             PostGroupViewsTests.post_test.text)
         self.assertEqual(
-            response.context['posts'][0].author,
+            response.context['page'][0].author,
             PostGroupViewsTests.post_test.author)
         self.assertEqual(
-            response.context['posts'][0].group,
+            response.context['page'][0].group,
             PostGroupViewsTests.post_test.group)
         self.assertEqual(
-            response.context['posts'][0].image,
+            response.context['page'][0].image,
             PostGroupViewsTests.post_test.image)
 
     def test_user_post_id_correct_context(self):
@@ -184,7 +188,7 @@ class PostGroupViewsTests(TestCase):
         response = self.authorized_client.get(reverse(
             'post',
             kwargs={
-                'username': PostGroupViewsTests.user,
+                'username': PostGroupViewsTests.user.username,
                 'post_id': PostGroupViewsTests.post_test.pk}))
         self.assertEqual(
             response.context['post'].text,
@@ -201,7 +205,6 @@ class PostGroupViewsTests(TestCase):
 
     def test_user_post_displayed_index(self):
         """Checking, post is displayed in index."""
-        cache.clear()
         response = self.authorized_client.get(reverse('index'))
         self.assertEqual(
             response.context['post'][0].text,
@@ -234,6 +237,36 @@ class PostGroupViewsTests(TestCase):
         self.assertEqual(
             response.context['post'].count(),
             post_count)
+
+    def test_adding_and_del_subscribers(self):
+        """Check subscription and unsubscription"""
+        username = PostGroupViewsTests.user
+        follower_count = username.following.count()
+        # Check subscription
+        self.authorized_client_2.post(reverse(
+            'profile_follow', kwargs={'username': username}))
+        follower_count_2 = username.following.count()
+        self.assertEqual(follower_count + 1, follower_count_2)
+        # Check unsubscription
+        self.authorized_client_2.post(reverse(
+            'profile_unfollow', kwargs={'username': username}))
+        follower_count_3 = username.following.count()
+        self.assertEqual(follower_count_2 - 1, follower_count_3)
+
+    def test_post_follower(self):
+        """Checking Subscribed Posts"""
+        username_1 = PostGroupViewsTests.user
+
+        self.authorized_client_2.post(reverse(
+            'profile_follow', kwargs={'username': username_1}))
+        response = self.authorized_client_2.get(reverse('follow_index'))
+        # Checking the posts of the authors of the subscription
+        self.assertEqual(
+            response.context['page'][0].text,
+            PostGroupViewsTests.post_test.text)
+        # We check that the posts did not appear
+        response = self.authorized_client.get(reverse('follow_index'))
+        self.assertEqual(len(response.context['page'].object_list), 0)
 
 
 class PaginatorViewsTest(TestCase):

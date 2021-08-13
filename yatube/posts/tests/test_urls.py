@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls.base import reverse
 from posts.models import Group, Post
+from django.core.cache import cache
 
 
 User = get_user_model()
@@ -108,6 +109,7 @@ class PostGroupURLTests(TestCase):
 
     def test_urls_edit_correct_template(self):
         """Template validation"""
+        cache.clear()
         response = self.authorized_client.get(
             PostGroupURLTests.url_authorized['post_edit'])
         self.assertTemplateUsed(response, 'posts/new_post.html')

@@ -1,6 +1,6 @@
 from posts.models import Post
 from django.contrib.auth import get_user_model
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 from posts.forms import PostForm
 from posts.models import Post
@@ -12,13 +12,14 @@ import io
 from PIL import Image
 
 User = get_user_model()
+TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
 
+@override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
 class PostCreateFormTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        settings.MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
         cls.user = User.objects.create(username='test')
         cls.form = PostForm()
         # Create object Post
@@ -32,7 +33,7 @@ class PostCreateFormTests(TestCase):
     def tearDownClass(cls):
         super().tearDownClass()
         # Рекурсивно удаляем временную после завершения тестов
-        shutil.rmtree(settings.MEDIA_ROOT, ignore_errors=True)
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
         # Create authorized client
@@ -94,3 +95,24 @@ class PostCreateFormTests(TestCase):
         self.assertEqual(post_create, post)
         self.assertEqual(post_create.group, post.group)
         self.assertEqual(post_create.author, post.author)
+
+    def test_create_comment_authorized_user(self):
+        post = PostCreateFormTests.post_test
+        comment_count = post.comments.count()
+        form_data = {'text': 'Пост супер бомба', 'post': post}
+        self.authorized_client.post(reverse(
+            'add_comment',
+            kwargs={'username': post.author, 'post_id': post.pk}),
+            data=form_data, follow=True)
+        self.assertEqual(post.comments.count(), comment_count + 1)
+
+    def test_create_comment_guest_user(self):
+        post = PostCreateFormTests.post_test
+        comment_count = post.comments.count()
+        form_data = {'text': 'Пост супер бомба', 'post': post}
+        self.guest_client.post(
+            reverse('add_comment',
+                    kwargs={'username': post.author,
+                            'post_id': post.pk}),
+            data=form_data, follow=True)
+        self.assertEqual(post.comments.count(), comment_count)
