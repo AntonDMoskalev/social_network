@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
-from posts.models import Group, Post
+from posts.models import Group, Post, Follow
 from django import forms
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -65,6 +65,7 @@ class PostGroupViewsTests(TestCase):
         self.authorized_client.force_login(self.user)
         self.authorized_client_2 = Client()
         self.authorized_client_2.force_login(self.user_2)
+        self.guest_client = Client()
         cache.clear()
 
     def test_views_use_correct_template(self):
@@ -238,8 +239,8 @@ class PostGroupViewsTests(TestCase):
             response.context['post'].count(),
             post_count)
 
-    def test_adding_and_del_subscribers(self):
-        """Check subscription and unsubscription"""
+    def test_adding_subscribers(self):
+        """Check subscription"""
         username = PostGroupViewsTests.user
         follower_count = username.following.count()
         # Check subscription
@@ -247,11 +248,16 @@ class PostGroupViewsTests(TestCase):
             'profile_follow', kwargs={'username': username}))
         follower_count_2 = username.following.count()
         self.assertEqual(follower_count + 1, follower_count_2)
-        # Check unsubscription
+
+    def test_del_subscribers(self):
+        """Check unsubscription"""
+        username = PostGroupViewsTests.user
+        Follow.objects.create(user=PostGroupViewsTests.user_2, author=username)
+        follower_count = username.following.count()
         self.authorized_client_2.post(reverse(
             'profile_unfollow', kwargs={'username': username}))
-        follower_count_3 = username.following.count()
-        self.assertEqual(follower_count_2 - 1, follower_count_3)
+        follower_count_2 = username.following.count()
+        self.assertEqual(follower_count - 1, follower_count_2)
 
     def test_post_follower(self):
         """Checking Subscribed Posts"""
@@ -267,6 +273,27 @@ class PostGroupViewsTests(TestCase):
         # We check that the posts did not appear
         response = self.authorized_client.get(reverse('follow_index'))
         self.assertEqual(len(response.context['page'].object_list), 0)
+
+        def test_create_comment_authorized_user(self):
+            post = PostGroupViewsTests.post_test
+            comment_count = post.comments.count()
+            form_data = {'text': 'Пост супер бомба', 'post': post}
+            self.authorized_client.post(reverse(
+                'add_comment',
+                kwargs={'username': post.author, 'post_id': post.pk}),
+                data=form_data, follow=True)
+            self.assertEqual(post.comments.count(), comment_count + 1)
+
+    def test_create_comment_guest_user(self):
+        post = PostGroupViewsTests.post_test
+        comment_count = post.comments.count()
+        form_data = {'text': 'Пост супер бомба', 'post': post}
+        self.guest_client.post(
+            reverse('add_comment',
+                    kwargs={'username': post.author,
+                            'post_id': post.pk}),
+            data=form_data, follow=True)
+        self.assertEqual(post.comments.count(), comment_count)
 
 
 class PaginatorViewsTest(TestCase):
