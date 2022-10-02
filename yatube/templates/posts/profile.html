@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Посты пользователя {{ author.get_full_name }}{% endblock %}
-{% block header %}Посты пользователя {{ author.get_full_name }}{% endblock %}
+<!-- Loading a translation -->
+{% load i18n %}
+{% block title %}{% trans "Посты пользователя" %} {{ author.get_full_name }}{% endblock %}
+{% block header %}{% trans "Посты пользователя" %} {{ author.get_full_name }}{% endblock %}
 {% block content %}
   {% include "includes/profile_info.html" %}
       {% for post in page %}
@@ -8,6 +10,3 @@
       {% endfor %}
       {% include "includes/paginator.html" %}
 {% endblock %}
-      <!-- Конец блока с отдельным постом -->
-      <!-- Остальные посты -->
-      <!-- Здесь постраничная навигация паджинатора -->

@@ -5,6 +5,8 @@ from .forms import PostForm, CommentForm
 from .models import Post, Group, User, Follow
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
+from django.conf import settings
+from django.http import HttpResponseRedirect
 
 
 @cache_page(20)
@@ -159,3 +161,11 @@ def profile_unfollow(request, username):
     post_delete = Follow.objects.get(user=request.user, author=author)
     post_delete.delete()
     return redirect('profile', username)
+
+
+def set_language(request):
+    lang = request.GET.get('l', 'en')
+    request.session[settings.LANGUAGE_SESSION_KEY] = lang
+    response = HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    response.set_cookie(settings.LANGUAGE_COOKIE_NAME, lang)
+    return response

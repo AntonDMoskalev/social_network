@@ -22,14 +22,14 @@ class PostGroupViewsTests(TestCase):
         cls.user_2 = User.objects.create(username='test_2')
         # Create object Group cat
         cls.test_group_cat = Group.objects.create(
-            title="Группа любителей котов",
+            title="Group of cat lovers",
             slug="cat",
-            description="кис-кис-кис")
+            description="kitty-kitty-kitty")
         # Create object Group dog
         cls.test_group_dog = Group.objects.create(
-            title="Группа любителей собак",
+            title="Group of dog lovers",
             slug="dog",
-            description="гав-гав-гав")
+            description="woof-woof-woof")
         # Create object image
         small_gif = (
             b'\x47\x49\x46\x38\x39\x61\x01\x00'
@@ -45,8 +45,8 @@ class PostGroupViewsTests(TestCase):
         )
         # Create object Post post_test
         cls.post_test = Post.objects.create(
-            text=("Рассказ о чёрном коте, "
-                  "который всю жизнь страдал из за цвета своей шерсти"),
+            text=("The story of a black cat, "
+                  "who suffered all his life because of the color of his fur"),
             pub_date="",
             author=cls.user,
             group=cls.test_group_cat,
@@ -55,7 +55,6 @@ class PostGroupViewsTests(TestCase):
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()
-        # Рекурсивно удаляем временную после завершения тестов
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):

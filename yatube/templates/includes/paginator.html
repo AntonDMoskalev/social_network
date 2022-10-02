@@ -1,4 +1,5 @@
-
+<!-- Loading a translation -->
+{% load i18n %}
     {% if page.has_other_pages %}
       <nav>
         <ul class="pagination">
@@ -6,18 +7,18 @@
             <li class="page-item">
               <a
                 class="page-link"
-                href="?page={{ page.previous_page_number }}">&laquo; Предыдущая</a>
+                href="?page={{ page.previous_page_number }}">&laquo; {% trans "Предыдущая" %}</a>
             </li>
           {% else %}
             <li class="page-item disabled">
-              <span class="page-link">&laquo; Предыдущая</span>
+              <span class="page-link">&laquo; {% trans "Предыдущая" %}</span>
             </li>
           {% endif %}
           {% for i in page.paginator.page_range %}
             {% if page.number == i %}
               <li class="page-item active">
                 <span class="page-link">{{ i }}
-                  <span class="sr-only">(текущая)</span>
+                  <span class="sr-only">{% trans "(текущая)" %}</span>
                 </span>
               </li>
             {% else %}
@@ -30,11 +31,11 @@
             <li class="page-item">
               <a
                 class="page-link"
-                href="?page={{ page.next_page_number }}">Следующая &raquo;</a>
+                href="?page={{ page.next_page_number }}">{% trans "Следующая" %} &raquo;</a>
             </li>
           {% else %}
             <li class="page-item disabled">
-              <span class="page-link">Следующая &raquo;</span>
+              <span class="page-link">{% trans "Следующая" %} &raquo;</span>
             </li>
           {% endif %}
         </ul>

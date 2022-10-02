@@ -1,21 +1,23 @@
 {% extends "base.html" %}
-{% block title %}Войти{% endblock %}
+<!-- Loading a translation -->
+{% load i18n %}
+{% block title %}{% trans "Войти" %}{% endblock %}
 {% block content %}
   {% load user_filters %}
 
   <div class="row justify-content-center">
     <div class="col-md-8 p-5">
       <div class="card">
-        <div class="card-header">Войти на сайт</div>
+        <div class="card-header">{% trans "Войти на сайт" %}</div>
         <div class="card-body">
           {% if form.errors %}
             <div class="alert alert-danger" role="alert">
-              Имя пользователя и пароль не совпадают. Введите правильные данные.
+              {% trans "Имя пользователя и пароль не совпадают. Введите правильные данные." %}
             </div>
           {% endif %}
 
           <div class="alert alert-info" role="alert">
-            Пожалуйста, авторизуйтесь.
+            {% trans "Пожалуйста, авторизуйтесь." %}
           </div>
 
           <form method="post" action="{% url 'login' %}">
@@ -25,7 +27,7 @@
               <label
                 for="{{ form.username.id_for_label }}"
                 class="col-md-4 col-form-label text-md-right">
-                Имя пользователя
+                {% trans "Имя пользователя" %}
               </label>
               <div class="col-md-6">
                 {{ form.username|addclass:"form-control" }}
@@ -36,7 +38,7 @@
               <label
                 for="{{ form.password.id_for_label }}"
                 class="col-md-4 col-form-label text-md-right">
-                Пароль
+                {% trans "Пароль" %}
               </label>
               <div class="col-md-6">
                 {{ form.password|addclass:"form-control" }}
@@ -45,10 +47,10 @@
 
             <div class="col-md-6 offset-md-4">
               <button type="submit" class="btn btn-primary">
-                Войти
+                {% trans "Войти" %}
               </button>
               <a href="{% url 'password_reset' %}" class="btn btn-link">
-                Забыли пароль?
+                {% trans "Забыли пароль?" %}
               </a>
             </div>
           </form>

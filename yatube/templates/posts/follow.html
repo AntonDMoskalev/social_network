@@ -1,17 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Последние обновления на сайте{% endblock %}
-{% block header %}Последние обновления на сайте{% endblock %}
+<!-- Loading a translation -->
+{% load i18n %}
+{% block title %}{% trans "Последние обновления на сайте" %}{% endblock %}
+{% block header %}{% trans "Последние обновления на сайте" %}{% endblock %}
 {% block content %}
 
 
   <div class="container">
     {% include "includes/menu.html" with follow=True %}
-    <!-- Вывод ленты записей -->
+    <!-- Output of the record feed -->
     {% for post in page %}
-      <!-- Вот он, новый include! -->
       {% include "includes/post_item.html" with post=post %}
     {% endfor %}
   </div>
-  <!-- Вывод паджинатора -->
+  <!-- Output of the paginator -->
   {% include "includes/paginator.html" with items=page paginator=paginator%}
 {% endblock %} 

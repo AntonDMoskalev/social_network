@@ -1,0 +1,370 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-02 17:22+1000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\posts\admin.py:10 .\posts\admin.py:17 .\posts\admin.py:24
+#: .\posts\admin.py:31
+msgid "-пусто-"
+msgstr "-empty-"
+
+#: .\posts\forms.py:10
+msgid "Текст"
+msgstr "Text"
+
+#: .\posts\forms.py:11
+msgid "Группы"
+msgstr "Groups"
+
+#: .\posts\forms.py:12
+msgid "Изображние"
+msgstr "Image"
+
+#: .\posts\forms.py:13
+msgid "Введите текст"
+msgstr "Enter the text"
+
+#: .\posts\forms.py:14
+msgid "Выберите из списка"
+msgstr "Select from the list"
+
+#: .\posts\forms.py:15
+msgid "Загрузить изображение"
+msgstr "Upload an image"
+
+#: .\posts\forms.py:22
+msgid "Оставьте комментарий"
+msgstr "Leave a comment"
+
+#: .\templates\about\author.html:5
+msgid "Об авторе проекта"
+msgstr "About the author of the project"
+
+#: .\templates\about\author.html:33
+msgid "Об авторе"
+msgstr "About the author"
+
+#: .\templates\about\author.html:35
+msgid ""
+" \n"
+"            Работаю на Фриланс площадках, в основном помогаю с Backend-"
+"разработкой.<br>\n"
+"            В работе в приоритет для себя ставлю качество и сроки выполнения "
+"заказов.<br>\n"
+"            Буду очень рад сотрудничеству и новому опыту.\n"
+"            "
+msgstr ""
+" \n"
+" I work on Freelance sites, mainly helping with Backend-"
+" development.<br>\n"
+"            In my work, I prioritize the quality and deadlines of "
+"orders.<br>\n"
+"            I will be very glad to cooperate and gain new experience.\n"
+"            "
+#: .\templates\about\tech.html:5 .\templates\about\tech.html:14
+msgid "Технологии"
+msgstr "Technologies"
+
+#: .\templates\about\tech.html:33
+msgid ""
+" \n"
+"            Сайт полностью реализован на Python c помощью фреймворка Django."
+"<br>\n"
+"            Проект имеет локализацию на двух языках (Русский, Английский).\n"
+"            "
+msgstr ""
+" \n"
+"            The site is fully implemented in Python using the Django framework."
+"<br>\n"
+"            The project has localization in two languages (Russian, English).\n"
+"            "
+#: .\templates\base.html:8 .\templates\base.html:19
+msgid "Последняя Социальная Сеть, Которая Вам Когда-Либо Понадобится"
+msgstr "The Last Social Network You'll Ever Need"
+
+#: .\templates\includes\comments.html:8
+msgid "Добавить комментарий:"
+msgstr "Add a comment:"
+
+#: .\templates\includes\comments.html:14
+msgid "Отправить"
+msgstr "Send"
+
+#: .\templates\includes\footer.html:5
+msgid "Об авторе."
+msgstr "About the author."
+
+#: .\templates\includes\footer.html:6
+msgid "Технологии."
+msgstr "Technologies."
+
+#: .\templates\includes\footer.html:9
+msgid "Социальная сеть "
+msgstr "Social network "
+
+#: .\templates\includes\menu.html:8
+msgid "Все авторы"
+msgstr "All authors"
+
+#: .\templates\includes\menu.html:13
+msgid "Избранные авторы"
+msgstr "Selected authors"
+
+#: .\templates\includes\nav.html:7
+#, python-format
+msgid " Пользователь: %(user.username)s."
+msgstr " User: %(user.username)s."
+
+#: .\templates\includes\nav.html:8
+msgid "Новая запись"
+msgstr "New entry"
+
+#: .\templates\includes\nav.html:9
+#: .\users\templates\registration\password_change_form.html:11
+#: .\users\templates\registration\password_change_form.html:53
+msgid "Изменить пароль"
+msgstr "Change Password"
+
+#: .\templates\includes\nav.html:10
+msgid "Выйти"
+msgstr "Exit"
+
+#: .\templates\includes\nav.html:12
+#: .\users\templates\registration\login.html:4
+#: .\users\templates\registration\login.html:50
+msgid "Войти"
+msgstr "Enter"
+
+#: .\templates\includes\nav.html:13
+msgid "Регистрация"
+msgstr "Registration"
+
+#: .\templates\includes\paginator.html:10
+#: .\templates\includes\paginator.html:14
+msgid "Предыдущая"
+msgstr "Previous"
+
+#: .\templates\includes\paginator.html:21
+msgid "(текущая)"
+msgstr "(current)"
+
+#: .\templates\includes\paginator.html:34
+#: .\templates\includes\paginator.html:38
+msgid "Следующая"
+msgstr "Next"
+
+#: .\templates\includes\post_item.html:36
+msgid "Добавить комментарий"
+msgstr "Add a comment"
+
+#: .\templates\includes\post_item.html:42
+msgid "Редактировать"
+msgstr "Edit"
+
+#: .\templates\includes\profile_info.html:20
+msgid "Подписчиков:"
+msgstr "Subscribers:"
+
+#: .\templates\includes\profile_info.html:21
+msgid "Подписан:"
+msgstr "Signed:"
+
+#: .\templates\includes\profile_info.html:27
+msgid "Записей:"
+msgstr "Records:"
+
+#: .\templates\includes\profile_info.html:35
+msgid "Отписаться"
+msgstr "Unsubscribe"
+
+#: .\templates\includes\profile_info.html:41
+msgid "Подписаться"
+msgstr "Subscribe"
+
+#: .\templates\misc\404.html:4 .\templates\misc\404.html:9
+msgid "Ошибка 404"
+msgstr "Error 404"
+
+#: .\templates\misc\404.html:10
+msgid "Страница"
+msgstr "Page"
+
+#: .\templates\misc\404.html:10
+msgid "не найдена"
+msgstr "not found"
+
+#: .\templates\misc\404.html:11 .\templates\misc\500.html:11
+msgid "Вернуться на главную"
+msgstr "Go back to the main page"
+
+#: .\templates\misc\500.html:4 .\templates\misc\500.html:9
+msgid "Ошибка 500"
+msgstr "Error 500"
+
+#: .\templates\misc\500.html:10
+msgid "Ошибка на сервере, попробуйте обновить страницу или обратиться позже"
+msgstr "Error on the server, try refreshing the page or contacting later"
+
+#: .\templates\posts\follow.html:4 .\templates\posts\follow.html:5
+#: .\templates\posts\index.html:4 .\templates\posts\index.html:5
+msgid "Последние обновления на сайте"
+msgstr "Latest updates on the site"
+
+#: .\templates\posts\group.html:5
+msgid "Записи сообщества"
+msgstr "Community Records"
+
+#: .\templates\posts\group.html:16
+msgid "Автор:"
+msgstr "Author:"
+
+#: .\templates\posts\group.html:16
+msgid "дата публикации:"
+msgstr "date of publication:"
+
+#: .\templates\posts\new_post.html:6 .\templates\posts\new_post.html:19
+msgid "Редактировать запись"
+msgstr "Edit an entry"
+
+#: .\templates\posts\new_post.html:8 .\templates\posts\new_post.html:21
+msgid "Добавить запись"
+msgstr "Add an entry"
+
+#: .\templates\posts\new_post.html:62
+msgid "Сохранить"
+msgstr "Save"
+
+#: .\templates\posts\new_post.html:64
+msgid "Добавить"
+msgstr "Add"
+
+#: .\templates\posts\post.html:4 .\templates\posts\post.html:5
+msgid "Пост пользователя"
+msgstr "User post"
+
+#: .\templates\posts\profile.html:4 .\templates\posts\profile.html:5
+msgid "Посты пользователя"
+msgstr "User posts"
+
+#: .\users\templates\registration\logged_out.html:4
+#: .\users\templates\registration\logged_out.html:10
+msgid "Вы вышли из системы"
+msgstr "You are logged out"
+
+#: .\users\templates\registration\logged_out.html:12
+msgid "Вы вышли из своей учётной записи. Ждём вас снова!"
+msgstr "You have logged out of your account. We are waiting for you again!"
+
+#: .\users\templates\registration\login.html:11
+msgid "Войти на сайт"
+msgstr "Log in to the site"
+
+#: .\users\templates\registration\login.html:15
+msgid "Имя пользователя и пароль не совпадают. Введите правильные данные."
+msgstr "The username and password do not match. Enter the correct data."
+
+#: .\users\templates\registration\login.html:20
+msgid "Пожалуйста, авторизуйтесь."
+msgstr "Please log in."
+
+#: .\users\templates\registration\login.html:30
+msgid "Имя пользователя"
+msgstr "Username"
+
+#: .\users\templates\registration\login.html:41
+msgid "Пароль"
+msgstr "Password"
+
+#: .\users\templates\registration\login.html:53
+msgid "Забыли пароль?"
+msgstr "Forgot your password?"
+
+#: .\users\templates\registration\password_change_done.html:4
+#: .\users\templates\registration\password_change_done.html:10
+msgid "Пароль изменён"
+msgstr "Password changed"
+
+#: .\users\templates\registration\password_change_done.html:12
+msgid "Пароль изменён успешно"
+msgstr "Password changed successfully"
+
+#: .\users\templates\registration\password_change_form.html:4
+msgid "Изменение пароля"
+msgstr "Changing the password"
+
+#: .\users\templates\registration\password_reset_complete.html:4
+#: .\users\templates\registration\password_reset_complete.html:10
+msgid "Сброс пароля выполнен"
+msgstr "Password reset completed"
+
+#: .\users\templates\registration\password_reset_complete.html:12
+msgid "Пароль изменён, всё получилось."
+msgstr "The password has been changed, everything worked out."
+
+#: .\users\templates\registration\password_reset_confirm.html:4
+msgid "Новый пароль"
+msgstr "New password"
+
+#: .\users\templates\registration\password_reset_confirm.html:13
+msgid "Введите новый пароль"
+msgstr "Enter a new password"
+
+#: .\users\templates\registration\password_reset_confirm.html:55
+msgid "Назначить новый пароль"
+msgstr "Assign a new password"
+
+#: .\users\templates\registration\password_reset_confirm.html:69
+msgid "Ошибка"
+msgstr "Error"
+
+#: .\users\templates\registration\password_reset_confirm.html:71
+msgid "Ссылка сброса пароля содержит ошибку или устарела."
+msgstr "The password reset link contains an error or is outdated."
+
+#: .\users\templates\registration\password_reset_done.html:4
+#: .\users\templates\registration\password_reset_done.html:10
+msgid "Ссылка на восстановление пароля отправлена"
+msgstr "A link to password recovery has been sent"
+
+#: .\users\templates\registration\password_reset_done.html:12
+msgid ""
+"Проверьте свою почту, вам должно прийти письмо со ссылкой для восстановления "
+"пароля."
+msgstr ""
+"Check your email, you should receive an email with a link to restore "
+"your password."
+#: .\users\templates\registration\password_reset_form.html:4
+msgid "Сброс пароля"
+msgstr "Password Reset"
+
+#: .\users\templates\registration\password_reset_form.html:56
+msgid "Сбросить пароль"
+msgstr "Reset Password"
+
+#: .\users\templates\signup.html:4 .\users\templates\signup.html:12
+#: .\users\templates\signup.html:49
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+#: .\yatube\settings.py:97
+msgid "English"
+msgstr "Английский"
+
+#: .\yatube\settings.py:98
+msgid "Russian"
+msgstr "Русский"

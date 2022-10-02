@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+<!-- Loading a translation -->
+{% load i18n %}
 {% block title %} 
   {% if is_edit %}
-    Редактировать запись
+    {% trans "Редактировать запись" %}
   {% else %}
-    Добавить запись
+    {% trans "Добавить запись" %}
   {% endif %}
   {% endblock %}
 {% block header %} {{ user.get_full_name }} {% endblock %}
@@ -14,9 +16,9 @@
       <div class="card">
         <div class="card-header">
           {% if is_edit %}
-            Редактировать запись
+            {% trans "Редактировать запись" %}
           {% else %}
-            Добавить запись
+            {% trans "Добавить запись" %}
           {% endif %}
         </div>
 
@@ -42,7 +44,7 @@
                   {% endif %}
                 </label>
                 <div class="col-md-6">
-                  {# подключаем фильтр и указываем класс #}
+                  {# connect the filter and specify the class #}
                   {{ field|addclass:"form-control" }}
                   {% if field.help_text %}
                     <small
@@ -57,9 +59,9 @@
             <div class="col-md-6 offset-md-4">
               <button type="submit" class="btn btn-primary">
               {% if is_edit %}
-                Сохранить
+                {% trans "Сохранить" %}
               {% else %}
-                Добавить
+                {% trans "Добавить" %}
               {% endif %}
               </button>
             </div>
@@ -68,5 +70,4 @@
       </div> <!-- card -->
     </div> <!-- col -->
   </div> <!-- row -->
-​
 {% endblock %}

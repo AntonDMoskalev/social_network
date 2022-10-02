@@ -24,15 +24,14 @@ class PostCreateFormTests(TestCase):
         cls.form = PostForm()
         # Create object Post
         cls.post_test = Post.objects.create(
-            text=("Рассказ о чёрном коте, "
-                  "который всю жизнь страдал из за цвета своей шерсти"),
+            text=("The story of a black cat, "
+                  "who suffered all his life because of the color of his fur"),
             pub_date="",
             author=cls.user)
 
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()
-        # Рекурсивно удаляем временную после завершения тестов
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
@@ -44,14 +43,13 @@ class PostCreateFormTests(TestCase):
 
     def test_create_post_form(self):
         """Post creation check"""
-
         with io.BytesIO() as out:
             img = Image.new('RGBA', (10, 10), (255, 0, 0))
             img.save(out, 'GIF')
             small_gif = out.getvalue()
 
         form_data = {
-            "text": 'кис-кис-кис-кис',
+            "text": 'kitty-kitty-kitty-kitty',
             "image": small_gif
         }
         # Remember the number of posts
@@ -62,7 +60,7 @@ class PostCreateFormTests(TestCase):
         # Create a post by an authorized user
         response = self.authorized_client.post(reverse(
             'new_post'), data=form_data, follow=True)
-        post_new = Post.objects.get(text='кис-кис-кис-кис')
+        post_new = Post.objects.get(text='kitty-kitty-kitty-kitty')
         # Create a get by new post
         response_new_post = self.authorized_client.get(
             reverse(
@@ -73,7 +71,7 @@ class PostCreateFormTests(TestCase):
         self.assertEqual(response_new_post.status_code, HTTPStatus.OK)
         # Posts should increase by 1
         self.assertEqual(Post.objects.count(), post_count + 1)
-        self.assertEqual(post_new.text, 'кис-кис-кис-кис')
+        self.assertEqual(post_new.text, 'kitty-kitty-kitty-kitty')
         self.assertEqual(post_new.author, PostCreateFormTests.user)
         self.assertEqual(post_new.group, None)
 
@@ -82,7 +80,7 @@ class PostCreateFormTests(TestCase):
         post = PostCreateFormTests.post_test
         post_count = Post.objects.count
         form_data = {
-            'text': 'раз-два-три-четыре',
+            'text': 'one-two-three-four',
         }
         self.authorized_client.post(reverse(
             'post_edit',
@@ -90,7 +88,7 @@ class PostCreateFormTests(TestCase):
                 'username': PostCreateFormTests.user,
                 'post_id': post.id}),
             data=form_data, follow=True)
-        post_create = Post.objects.get(text="раз-два-три-четыре")
+        post_create = Post.objects.get(text="one-two-three-four")
         self.assertEqual(Post.objects.count, post_count)
         self.assertEqual(post_create, post)
         self.assertEqual(post_create.group, post.group)
@@ -99,7 +97,7 @@ class PostCreateFormTests(TestCase):
     def test_create_comment_authorized_user(self):
         post = PostCreateFormTests.post_test
         comment_count = post.comments.count()
-        form_data = {'text': 'Пост супер бомба', 'post': post}
+        form_data = {'text': 'Post super bomb', 'post': post}
         self.authorized_client.post(reverse(
             'add_comment',
             kwargs={'username': post.author, 'post_id': post.pk}),
@@ -109,7 +107,7 @@ class PostCreateFormTests(TestCase):
     def test_create_comment_guest_user(self):
         post = PostCreateFormTests.post_test
         comment_count = post.comments.count()
-        form_data = {'text': 'Пост супер бомба', 'post': post}
+        form_data = {'text': 'Post super bomb', 'post': post}
         self.guest_client.post(
             reverse('add_comment',
                     kwargs={'username': post.author,

@@ -8,13 +8,13 @@ class ModelTest(TestCase):
         super().setUpClass()
         # Create a record about the group in the database
         cls.group_test = Group.objects.create(
-            title="Группа любителей котов",
+            title="Group of cat lovers",
             slug="cat",
-            description="кис-кис-кис")
+            description="kitty-kitty-kitty")
         # Сreate a post in the database
         cls.post_test = Post.objects.create(
-            text=("Рассказ о чёрном коте,"
-                  "который всю жизнь страдал из за цвета своей шерсти"),
+            text=("The story of a black cat, "
+                  "who suffered all his life because of the color of his fur"),
             pub_date="",
             author=User.objects.create(username="test"),
             group=cls.group_test)

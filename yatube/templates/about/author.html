@@ -1,32 +1,43 @@
 <!-- templates/about/author.html -->
 {% extends "base.html" %}
-{% block title %}Об авторе проекта{% endblock %}
+<!-- Loading a translation -->
+{% load i18n %}
+{% block title %}{% trans "Об авторе проекта" %}{% endblock %}
 {% block content %}
   <div class="row">
-    <!-- Левый вспомогательный блок -->
     <div class="col-md-3 mb-3 mt-1">
       <div class="card">
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <div class="h3">
-                Об авторе
+                Контакты
               </div>
             </li>
             <li class="list-group-item">
               <div class="h6 text-muted">
-                Полезный короткий текст
+                <ul>
+                  <li><a href="https://www.linkedin.com/in/anton-dev-py/">Linkedin</a></li>
+                  <li><a href="https://github.com/AntonDMoskalev">Github</a></li>
+                  <li><a href="https://t.me/MoskalevAD">Telegram</a></li>
+                </ul>
               </div>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <!-- Тело страницы -->
     <div class="col-md-9">
       <div class="card-body">
         <div class="card-text">
-          <p>Текст страницы "Об авторе"</p>
+          <h2>{% trans "Об авторе" %}</h2>
+          <p>
+            {% blocktrans %} 
+            Работаю на Фриланс площадках, в основном помогаю с Backend-разработкой.<br>
+            В работе в приоритет для себя ставлю качество и сроки выполнения заказов.<br>
+            Буду очень рад сотрудничеству и новому опыту.
+            {% endblocktrans %}
+            </p>
         </div>
       </div>
     </div>

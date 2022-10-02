@@ -1,9 +1,11 @@
+<!-- Loading a translation -->
+{% load i18n %}
 <footer class="pt-4 my-md-5 pt-md-5 border-top">
   <p class="m-0 text-dark text-center ">
-    <a href="{% url 'about:author' %}">Об авторе.</a>
-    <a href="{% url 'about:tech' %}">Технологии.</a>
+    <a href="{% url 'about:author' %}">{% trans "Об авторе." %}</a>
+    <a href="{% url 'about:tech' %}">{% trans "Технологии." %}</a>
   </p>
   <p class="m-0 text-dark text-center ">
-    Социальная сеть <span style="color:red">Ya</span>tube
+    {% trans "Социальная сеть " %}<span style="color:red">Yatube</span>
   </p>
 </footer> 

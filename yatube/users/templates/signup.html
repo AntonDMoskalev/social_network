@@ -1,13 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Зарегистрироваться{% endblock %}
+<!-- Loading a translation -->
+{% load i18n %}
+{% block title %}{% trans "Зарегистрироваться" %}{% endblock %}
 {% block content %}
-  {# загружаем фильтр #}
+{# loading the filter #}
   {% load user_filters %}
 
   <div class="row justify-content-center">
     <div class="col-md-8 p-5">
       <div class="card">
-        <div class="card-header">Зарегистрироваться</div>
+        <div class="card-header">{% trans "Зарегистрироваться" %}</div>
         <div class="card-body">
 
           {% for error in form.errors %}
@@ -29,7 +31,7 @@
                   {% endif %}
                 </label>
                 <div class="col-md-6">
-                  {# подключаем фильтр и указываем класс #}
+                  {# connect the filter and specify the class #}
                   {{ field|addclass:"form-control" }}
                   {% if field.help_text %}
                     <small
@@ -44,7 +46,7 @@
 
             <div class="col-md-6 offset-md-4">
               <button type="submit" class="btn btn-primary">
-                Зарегистрироваться
+                {% trans "Зарегистрироваться" %}
               </button>
             </div>
           </form>
